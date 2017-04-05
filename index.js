@@ -1,6 +1,7 @@
 var session = require('express-session');
+var redis = require('redis');
 
-var FileStore = require('session-file-store')(session);
+var RedisStore = require('connect-redis')(session);
 var app = require('express')();
 
 // setup middleware
@@ -10,7 +11,11 @@ app.use(session({
     secret: 'my secret',
     saveUninitialized: false,
     resave: false,
-    store: new FileStore(),
+    store: new RedisStore({
+        client: redis.createClient(),
+        host: 'localhost',
+        port: 6379,
+    }),
 }));
 
 app.use(function printSession (req, res, next) {
