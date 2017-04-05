@@ -1,0 +1,20 @@
+{
+  "name": "express-auth-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch": "nodemon index.js"
+  },
+  "author": "Michael-Bryant Choa",
+  "license": "MIT",
+  "dependencies": {
+    "connect-redis": "^3.2.0",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "morgan": "^1.8.1",
+    "session-file-store": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
