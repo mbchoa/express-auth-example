@@ -9,8 +9,7 @@
             document
                 .getElementById('login-btn')
                 .addEventListener('click', function (event) {
-                    fetch('http://localhost:4000/login', {
-                        credentials: 'same-origin',
+                    fetch('http://localhost:4001/login', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
