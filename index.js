@@ -1,8 +1,9 @@
 var session = require('express-session');
 var redis = require('redis');
+var express = require('express');
 
 var RedisStore = require('connect-redis')(session);
-var app = require('express')();
+var app = express();
 
 // setup middleware
 app.use(require('morgan')('dev'));
@@ -24,23 +25,14 @@ app.use(function printSession (req, res, next) {
 });
 
 // setup routes
-app.get('/', function initViewsCount (req, res, next) {
-    if (typeof req.session.views === 'undefined') {
-        req.session.views = 1;
-        return res.send('Welcome to the files session demo.  Refresh page!');
-    }
-    next();
+app.get('/', function sendIndex (req, res, next) {
+    res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/', function incrementViewsCount (req, res, next) {
+app.post('/login', function login (req, res, next) {
+    if (!req.session.views) req.session.views = 0;
     req.session.views++;
-    next();
-});
-
-app.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'text/html');
-    res.write('<p>views: ' + req.session.views + '</p>\n');
-    res.send();
+    res.status(200).send();
 });
 
 // start server

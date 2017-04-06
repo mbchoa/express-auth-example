@@ -1,0 +1,29 @@
+<html>
+    <header>
+        <title>Express Authentication Example</title>
+    </header>
+    <body>
+        <h1>Welcome to your new session!</h1>
+        <button id="login-btn">Login</button>
+        <script type="text/javascript">
+            document
+                .getElementById('login-btn')
+                .addEventListener('click', function (event) {
+                    fetch('http://localhost:4000/login', {
+                        credentials: 'same-origin',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: 'hello',
+                            password: 'world'
+                        })
+                    })
+                        .then(function response (res) {
+                            console.log('Response after login!', res);
+                        });
+                });
+        </script>
+    </body>
+</html>
