@@ -7,7 +7,7 @@ app.use(require('morgan')('dev'));
 
 // setup routes
 app.get('/', function sendIndex (req, res, next) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/login.html');
 });
 
 // start server

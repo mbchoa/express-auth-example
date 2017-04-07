@@ -3,13 +3,14 @@
         <title>Express Authentication Example</title>
     </header>
     <body>
-        <h1>Welcome to your new session!</h1>
+        <h1>Please click the login button to authenticate with the service!</h1>
         <button id="login-btn">Login</button>
         <script type="text/javascript">
             document
                 .getElementById('login-btn')
                 .addEventListener('click', function (event) {
                     fetch('http://localhost:4001/login', {
+                        credentials: 'include',
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

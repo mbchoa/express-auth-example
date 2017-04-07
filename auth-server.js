@@ -2,13 +2,16 @@ var session = require('express-session');
 var redis = require('redis');
 var express = require('express');
 var cors = require('cors');
+var bodyParser = require('body-parser');
 
 var RedisStore = require('connect-redis')(session);
 var app = express();
 
 // setup middleware
 app.use(require('morgan')('dev'));
+app.use(bodyParser.json());
 app.use(cors({
+    credentials: true,
     origin: 'http://localhost:4000'
 }));
 app.use(session({
@@ -23,17 +26,17 @@ app.use(session({
     }),
 }));
 
-app.use(function printSession (req, res, next) {
-    console.log('req.session', req.session);
-    next();
-});
-
 // setup routes
 app.post('/login', function login (req, res, next) {
-    console.log('Posted login');
-    if (!req.session.views) req.session.views = 0;
-    req.session.views++;
-    res.status(200).send();
+    if (!req.session.email) {
+        console.log('Log in, start new sesion');
+        console.log('BODY', req.body.email);
+        req.session.email = req.body.email;
+        return res.status(200).send('Logging in');
+    } else {
+        console.log('Already logged in!');
+        return res.status(200).send('Already logged in!');
+    }
 });
 
 // start server
