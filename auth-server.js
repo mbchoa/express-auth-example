@@ -28,10 +28,9 @@ app.use(session({
 
 // setup routes
 app.post('/login', function login (req, res, next) {
-    if (!req.session.email) {
+    if (!req.session.username) {
         console.log('Log in, start new sesion');
-        console.log('BODY', req.body.email);
-        req.session.email = req.body.email;
+        req.session.username = req.body.username;
         return res.status(200).send('Logging in');
     } else {
         console.log('Already logged in!');
